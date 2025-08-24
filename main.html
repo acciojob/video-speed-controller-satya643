@@ -1,78 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Video Speed Scrubber</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      display: flex;
-      justify-content: center;
-      padding: 50px;
-      background: #f4f4f4;
-    }
-    .wrapper {
-      position: relative;
-      width: 765px;
-    }
-    video {
-      width: 100%;
-      display: block;
-      border-radius: 5px;
-    }
-    .speed {
-      position: absolute;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 400px;
-      height: 20px;
-      background: #ddd;
-      border-radius: 10px;
-      cursor: pointer;
-    }
-    .speed-bar {
-      width: 50%;
-      height: 100%;
-      background: #f00;
-      border-radius: 10px;
-      text-align: center;
-      line-height: 20px;
-      color: #fff;
-      font-weight: bold;
-      user-select: none;
-    }
-  </style>
-</head>
-<body>
-  <div class="wrapper">
-    <video class="flex" width="765" height="430" src="http://clips.vorwaerts-gmbh.de/VfE_html5.mp4"></video>
-    <div class="speed">
-      <div class="speed-bar">1×</div>
-    </div>
+<div class="player">
+  <video class="player__video" src="https://www.w3schools.com/html/mov_bbb.mp4"></video>
+  
+  <button class="toggle">►</button>
+  <button class="rewind" data-skip="-10">« 10s</button>
+  <button class="forward" data-skip="25">25s »</button>
+  
+  <input type="range" class="volume" min="0" max="1" step="0.01" value="0.75">
+  <input type="range" class="playbackSpeed" min="0.5" max="2" step="0.1" value="1">
+
+  <div class="progress">
+    <div class="progress__filled"></div>
   </div>
-
-  <script>
-    const video = document.querySelector('video');
-    const speed = document.querySelector('.speed');
-    const speedBar = document.querySelector('.speed-bar');
-
-    let mousedown = false;
-
-    function handleSpeed(e) {
-      const percent = e.offsetX / speed.offsetWidth; // 0 → 1
-      const minSpeed = 0.5;
-      const maxSpeed = 2;
-      const playbackRate = minSpeed + percent * (maxSpeed - minSpeed);
-      speedBar.style.width = `${percent * 100}%`;
-      speedBar.textContent = playbackRate.toFixed(2) + '×';
-      video.playbackRate = playbackRate;
-    }
-
-    speed.addEventListener('mousedown', () => mousedown = true);
-    speed.addEventListener('mouseup', () => mousedown = false);
-    speed.addEventListener('mousemove', e => mousedown && handleSpeed(e));
-    speed.addEventListener('click', handleSpeed);
-  </script>
-</body>
-</html>
+</div>
